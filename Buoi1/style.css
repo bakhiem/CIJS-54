@@ -1,0 +1,15 @@
+#my-paragrap{
+  color: red
+}
+p.color-blue{
+  color: blue!important;
+}
+p, h1 {
+  color: blue;
+}
+.parent div{
+  font-size: 20px;
+}
+.parent>div{
+  
+}
