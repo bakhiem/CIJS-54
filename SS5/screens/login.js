@@ -1,5 +1,5 @@
 const style = `
-  .register-container {
+  .login-container {
     width: 100vw;
     height: 100vh;
     background: url('https://ict-imgs.vgcloud.vn/2020/10/14/02/iphone-12-pro-va-iphone-12-pro-max-ra-mat-xung-danh-iphone-cao-cap-nhat-6.jpg');
@@ -8,7 +8,7 @@ const style = `
     display: flex;
     justify-content: flex-end;
   }
-  #register-form{
+  #login-form{
     width: 30%;
     background: #fff;
     height: 100vh;
@@ -26,7 +26,7 @@ const style = `
   }
 `
 import { redirect } from '../index.js'
-class RegisterSceen extends HTMLElement{
+class loginSceen extends HTMLElement{
   constructor() {
     super()
     this._shadowRoot = this.attachShadow({mode: 'open'})
@@ -36,37 +36,22 @@ class RegisterSceen extends HTMLElement{
       <style>
         ${style}
       </style>
-      <div class="register-container">
-        <form id="register-form">
+      <div class="login-container">
+        <form id="login-form">
           <h1>CI Project</h1>
-          <input-wrapper id="first-name" type="text" placeholder="First name"></input-wrapper>
-          <input-wrapper id="last-name" type="text" placeholder="Last name"></input-wrapper>
           <input-wrapper id="email" type="text" placeholder="Email"></input-wrapper>
           <input-wrapper id="password" type="password" placeholder="Password"></input-wrapper>
-          <input-wrapper id="confirm-password" type="password" placeholder="Confirm password"></input-wrapper>
-          <button>Register</button>
-          <a id="redirect">Already have an account ? Login</a>
+          <button>Login</button>
+          <a id="redirect">Don't have an account ? login</a>
         </form>
       </div>
     `
-    const registerForm = this._shadowRoot.getElementById('register-form')
-    registerForm.addEventListener('submit', async(e) => {
+    const loginForm = this._shadowRoot.getElementById('login-form')
+    loginForm.addEventListener('submit', async(e) => {
       e.preventDefault()
-      const firstName = this._shadowRoot.getElementById('first-name').value
-      const lastName = this._shadowRoot.getElementById('last-name').value
       const email = this._shadowRoot.getElementById('email').value
       const password = this._shadowRoot.getElementById('password').value
-      const confirmPassword = this._shadowRoot.getElementById('confirm-password').value
       let isValid = true
-      if (firstName.trim() === '') {
-        isValid = false
-        this.setError('first-name', 'Please input first name')
-      } else {
-      }
-      if (lastName.trim() === '') {
-        isValid = false
-        this.setError('last-name', 'Please input last name')
-      }
       if (email.trim() === '') {
         isValid = false
         this.setError('email', 'Please input email')
@@ -74,14 +59,6 @@ class RegisterSceen extends HTMLElement{
       if (password.trim() === '') {
         isValid = false
         this.setError('password', 'Please input password')
-      }
-      if (confirmPassword.trim() === '') {
-        isValid = false
-        this.setError('confirm-password', 'Please input confirm password')
-      }
-      if (password !== confirmPassword) {
-        isValid = false
-        this.setError('confirm-password', "Password didn't match")
       }
       if (!isValid) {
         return
@@ -116,4 +93,4 @@ class RegisterSceen extends HTMLElement{
     return !res.empty
   }
 }
-window.customElements.define('register-screen', RegisterSceen)
+window.customElements.define('login-screen', loginSceen)
