@@ -1,4 +1,5 @@
 import './screens/register.js'
+import './screens/login.js'
 import './components/inputWrapper.js'
 
 redirect('register')
@@ -9,7 +10,7 @@ export function redirect(screenName) {
     `
   } else if (screenName === 'login') {
     document.getElementById('app').innerHTML = `
-      day la man login
+      <login-screen></login-screen>
     `
   }
 }

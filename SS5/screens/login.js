@@ -26,6 +26,7 @@ const style = `
   }
 `
 import { redirect } from '../index.js'
+import { getDataFromDocs } from '../utils.js'
 class loginSceen extends HTMLElement{
   constructor() {
     super()
@@ -63,34 +64,25 @@ class loginSceen extends HTMLElement{
       if (!isValid) {
         return
       }
-      const user = {
-        fullName: firstName + ' ' + lastName,
-        email: email,
-        password: CryptoJS.MD5(password).toString()
-      }
-      // nếu email đã tồn tại rồi thì trả ra true
-      const check = await this.checkEmailExist(email)
-      if (check) {
-        alert('Email đã được đăng ký')
+      const user = await firebase.firestore()
+      .collection('users')
+      .where('email', '==', email)
+      .where('password', '==', CryptoJS.MD5(password).toString())
+      .get()
+      if(user.empty) {
+        alert('Sai email/ password')
       } else {
-        firebase.firestore().collection('users').add(user)
-        alert('Đăng ký thành công')
-        redirect('login')
+        console.log(getDataFromDocs(user)[0])
       }
     })
     this._shadowRoot.getElementById('redirect')
     .addEventListener('click', () => {
-      redirect('login')
+      redirect('register')
     })
   }
   setError(id, message) {
     this._shadowRoot.getElementById(id)
     .setAttribute('error', message)
-  }
-  async checkEmailExist(email) {
-   const res = await firebase.firestore().collection('users')
-    .where('email', '==' , email).get()
-    return !res.empty
   }
 }
 window.customElements.define('login-screen', loginSceen)
