@@ -8,3 +8,14 @@ export function getDataFromDoc(doc) {
 export function getDataFromDocs(data) {
   return data.docs.map(getDataFromDoc)
 }
+/**
+ * 
+ * @param {String} key 
+ * @param {Object} value 
+ */
+export function saveToLocalStorage(key, value) {
+  localStorage.setItem(key, JSON.stringify(value))
+}
+export function getItemLocalStorage(key) {
+  return JSON.parse(localStorage.getItem(key))
+}

@@ -12,5 +12,9 @@ export function redirect(screenName) {
     document.getElementById('app').innerHTML = `
       <login-screen></login-screen>
     `
+  } else if (screenName === 'story') {
+    document.getElementById('app').innerHTML = `
+      DAY LA MAN STORY
+    `
   }
 }

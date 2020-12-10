@@ -26,7 +26,7 @@ const style = `
   }
 `
 import { redirect } from '../index.js'
-import { getDataFromDocs } from '../utils.js'
+import { getDataFromDocs, saveToLocalStorage } from '../utils.js'
 class loginSceen extends HTMLElement{
   constructor() {
     super()
@@ -72,7 +72,8 @@ class loginSceen extends HTMLElement{
       if(user.empty) {
         alert('Sai email/ password')
       } else {
-        console.log(getDataFromDocs(user)[0])
+        saveToLocalStorage('currentUser', getDataFromDocs(user)[0])
+        redirect('story')
       }
     })
     this._shadowRoot.getElementById('redirect')
