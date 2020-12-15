@@ -7,6 +7,7 @@ class StoryScreen extends HTMLElement{
     this._shadowDom.innerHTML =  `
       <story-header></story-header>
       <create-post></create-post>
+      <list-post></list-post>
     `
   }
 }

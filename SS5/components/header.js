@@ -34,6 +34,8 @@ const style = `
   outline: none;
 }
 `
+import { removeItemFromLocalStorage } from "../utils.js"
+import { redirect } from "../index.js"
 class StoryHeader extends HTMLElement{
   constructor() {
     super()
@@ -53,11 +55,15 @@ class StoryHeader extends HTMLElement{
       </div>
       <div class="user-info">
         <div class="avatar"><i class="fa fa-user-circle-o" aria-hidden="true"></i></div>
-        <button class="btn"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+        <button id="logout-btn" class="btn"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
       </div>
     </div>
     `
-    
+    this._shadowDom.getElementById('logout-btn').addEventListener('click', () => {
+      // xoa currentUser trong localstorage
+      removeItemFromLocalStorage('currentUser')
+      redirect('login')
+    })
   }
 }
 window.customElements.define('story-header', StoryHeader)
