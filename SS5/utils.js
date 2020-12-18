@@ -39,3 +39,15 @@ export function convertDate(dateStr) {
 function validateNiceNumber(number) {
   return (number < 10) ? ('0' + number) : (number)
 }
+export async function uploadFileToStorage(file) {
+  // tạo đường dẫn đến file đấy
+  const fileName = file.name
+  const filePath = `file/${fileName}`
+  const ref = firebase.storage().ref().child(filePath)
+  await ref.put(file)
+  console.log(getFileUrl(ref))
+  return getFileUrl(ref)
+}
+function getFileUrl(fileRef) {
+  return `https://firebasestorage.googleapis.com/v0/b/${fileRef.bucket}/o/${encodeURIComponent(fileRef.fullPath)}?alt=media`
+}

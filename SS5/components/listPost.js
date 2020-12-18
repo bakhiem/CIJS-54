@@ -6,7 +6,7 @@ const style = `
     margin-top: 10px;
   }
 `
-import { getDataFromDocs } from "../utils.js";
+import { getDataFromDocs, getDataFromDoc } from "../utils.js";
 class ListPost extends HTMLElement {
   constructor() {
     super();
@@ -51,8 +51,22 @@ class ListPost extends HTMLElement {
         firstRun = false
         return
       }
-      console.log('Snap shot', snapShot.docChanges())
+      const docChange = snapShot.docChanges()
+      for(const oneChange of docChange) {
+        if(oneChange.type === 'added') {
+          this.appendPostItem(getDataFromDoc(oneChange.doc))
+        }
+      }
     })
   }
+  appendPostItem(data) {
+    const postItem = document.createElement('post-item')
+    postItem.setAttribute('time', data.createdAt)
+    postItem.setAttribute('author', data.authorName)
+    postItem.setAttribute('content', data.content)
+    const parent = this._shadowDom.querySelector('.list-posts')
+    parent.insertBefore(postItem, parent.firstChild)
+  }
 }
+// <post-item time="2020/12/20" author="ahihi" content="abc"> </post-item>
 window.customElements.define('list-post', ListPost)
