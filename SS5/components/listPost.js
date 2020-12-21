@@ -23,11 +23,16 @@ class ListPost extends HTMLElement {
     const listPost = getDataFromDocs(res)
     let html = ''
     listPost.forEach(element => {
+      const imgSrc = 
+      (element.files && element.files.length > 0) 
+      ? element.files[0] 
+      : ''
       html += `
         <post-item
           time="${element.createdAt}"
           author="${element.authorName}"
-          content="${element.content}">
+          content="${element.content}"
+          img="${imgSrc}">
         </post-item>
       `
     })

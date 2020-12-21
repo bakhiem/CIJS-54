@@ -25,7 +25,6 @@ const style = `
     border-radius: 5px;
   }
 `
-import { redirect } from '../index.js'
 import { getDataFromDocs, saveToLocalStorage } from '../utils.js'
 class loginSceen extends HTMLElement{
   constructor() {
@@ -73,12 +72,12 @@ class loginSceen extends HTMLElement{
         alert('Sai email/ password')
       } else {
         saveToLocalStorage('currentUser', getDataFromDocs(user)[0])
-        redirect('story')
+        router.navigate('/story')
       }
     })
     this._shadowRoot.getElementById('redirect')
     .addEventListener('click', () => {
-      redirect('register')
+      router.navigate('/register')
     })
   }
   setError(id, message) {

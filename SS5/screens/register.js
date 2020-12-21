@@ -25,7 +25,6 @@ const style = `
     border-radius: 5px;
   }
 `
-import { redirect } from '../index.js'
 class RegisterSceen extends HTMLElement{
   constructor() {
     super()
@@ -98,12 +97,12 @@ class RegisterSceen extends HTMLElement{
       } else {
         firebase.firestore().collection('users').add(user)
         alert('Đăng ký thành công')
-        redirect('login')
+        router.navigate('/login')
       }
     })
     this._shadowRoot.getElementById('redirect')
     .addEventListener('click', () => {
-      redirect('login')
+      router.navigate('/login')
     })
   }
   setError(id, message) {

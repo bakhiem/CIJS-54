@@ -35,7 +35,6 @@ const style = `
 }
 `
 import { removeItemFromLocalStorage } from "../utils.js"
-import { redirect } from "../index.js"
 class StoryHeader extends HTMLElement{
   constructor() {
     super()
@@ -62,7 +61,7 @@ class StoryHeader extends HTMLElement{
     this._shadowDom.getElementById('logout-btn').addEventListener('click', () => {
       // xoa currentUser trong localstorage
       removeItemFromLocalStorage('currentUser')
-      redirect('login')
+      router.navigate('login')
     })
   }
 }
