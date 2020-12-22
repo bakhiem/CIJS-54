@@ -8,4 +8,3 @@ import './components/postItem.js'
 import './components/listPost.js'
 import './navigo.js'
 
-

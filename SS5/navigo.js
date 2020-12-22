@@ -12,8 +12,13 @@ router
     'register': function () {
       redirect('register')
     },
-    'story': function () {
-      redirect('story')
+    'story': async function () {
+      const check = await checkAuthen()
+      if (check) {
+        redirect('story')
+      } else {
+        router.navigate('login')
+      }
     },
     '*': function () {
       router.navigate('login')
@@ -46,12 +51,12 @@ async function checkAuthen() {
     .where('password', '==', user.password)
     .get()
     if(res.empty) {
-      redirect('login')
+      return false
     } else {
-      redirect('story')
+      return true
     }
   } else {
-    redirect('login')
+    return false
   }
 }
 window.router = router
